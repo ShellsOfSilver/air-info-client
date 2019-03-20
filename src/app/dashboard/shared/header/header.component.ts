@@ -15,10 +15,10 @@ export class HeaderComponent implements OnInit {
   userStatus = false;
 
   links = [
-    {path:"airline", name: "Airline", icon: "fas fa-location-arrow fa-2x"},
-    {path:"airport", name: "Airport", icon: "fas fa-suitcase-rolling fa-2x header-account-icon-port"},
-    {path:"airplane", name: "Airplane", icon: "fas fa-plane fa-2x header-account-icon-plane"},
-    {path:"aircompany", name: "Aircompany", icon: "fas fa-building fa-2x header-account-icon-company"}
+    {path:"airline", name: "Airline", icon: "fas fa-location-arrow fa-lg"},
+    {path:"airport", name: "Airport", icon: "fas fa-suitcase-rolling fa-lg header-account-icon-port"},
+    {path:"airplane", name: "Airplane", icon: "fas fa-plane fa-lg header-account-icon-plane"},
+    {path:"aircompany", name: "Aircompany", icon: "fas fa-building fa-lg header-account-icon-company"}
   ];
 
   linksManager = [

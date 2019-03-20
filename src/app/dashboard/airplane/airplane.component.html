@@ -1,3 +1,115 @@
-<div>
-  module airplane
-</div>
+<p-table [columns]="cols" [value]="planes"
+    class="air-table"
+ selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15">
+        <ng-template pTemplate="caption">
+            List of Planes
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+                <td *ngFor="let col of columns">
+                    <div *ngIf="col.field==='capacity'; else other" class="plane-capacity-class">
+                        <span>Economy : {{rowData[col.field].economy}}</span>
+                        <span>Premium economy: {{rowData[col.field].premiumEconomy}}</span>
+                        <span>Business: {{rowData[col.field].business}}</span>
+                        <span>First: {{rowData[col.field].first}}</span>
+                    </div>
+                    <ng-template #other>
+                        {{rowData[col.field]}}
+                    </ng-template>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary" let-rowData>
+            <div style="text-align:left">
+                <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+            </div>
+        </ng-template>
+    </p-table>
+    
+    <p-dialog header="Plane Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [style]="{maxWidth: '700px'}">
+        <div class="ui-g ui-fluid" *ngIf="plane">
+            <form (ngSubmit) = "onSubmit()" [formGroup]="planeForm">
+            <div class="ui-g-12">
+                <div class="ui-g-2">
+                    <label for="name">Name</label>
+                </div>
+                <div class="ui-g-10">
+                    <input pInputText id="name" formControlName="name" />
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-2">
+                    <label for="maxSpeed">Max speed</label>
+                </div>
+                <div class="ui-g-10">
+                    <input pInputText id="maxSpeed" formControlName="maxSpeed"  />
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-2">
+                    <label for="maxDistance">Max distance</label>
+                </div>
+                <div class="ui-g-10">
+                    <input pInputText id="maxDistance" formControlName="maxDistance" />
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-2">
+                    <label for="description">Description</label>
+                </div>
+                <div class="ui-g-10">
+                    <textarea pInputTextarea id="description" formControlName="description"  ></textarea>
+                </div>
+            </div>
+            <p style="text-align: center;width: 100%;">Capacity</p>
+            <div formGroupName="capacity">
+                <div class="ui-g-12">
+                    <div class="ui-g-2">
+                        <label for="economy">Economy</label>
+                    </div>
+                    <div class="ui-g-10">
+                        <input pInputText id="economy" formControlName="economy" />
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-2">
+                        <label for="premiumEconomy">Premium economy</label>
+                    </div>
+                    <div class="ui-g-10">
+                        <input pInputText id="premiumEconomy" formControlName="premiumEconomy" />
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-2">
+                        <label for="business">Business</label>
+                    </div>
+                    <div class="ui-g-10">
+                        <input pInputText id="business" formControlName="business" />
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-2">
+                        <label for="first">First</label>
+                    </div>
+                    <div class="ui-g-10">
+                        <input pInputText id="first" formControlName="first" />
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+        <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="submit" pButton icon="fa fa-close" (click)="delete()" label="Delete"></button>
+                <button type="submit" [disabled]="planeForm.invalid" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
+            </div>
+        </p-footer>
+    </p-dialog>

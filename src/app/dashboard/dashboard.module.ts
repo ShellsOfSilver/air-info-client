@@ -23,7 +23,6 @@ import {ToastModule} from 'primeng/toast';
     ReactiveFormsModule,
     FormsModule,
     DashboardRoutingModule,
-    FormsModule,
     ButtonModule,
     InputTextModule,
     OverlayPanelModule,
