@@ -1,0 +1,35 @@
+<form  class='registration-container'
+        [formGroup]="registrationForm"
+        (ngSubmit) = "onSubmit()" 
+        (keydown.enter)="onSubmit()">
+        <h1>Registration</h1>
+        
+            <mat-form-field  appearance="outline">
+                    <mat-label>Login</mat-label>
+                    <input formControlName="login" tabindex="-1" matInput placeholder="Placeholder">
+            </mat-form-field> 
+
+            <mat-form-field  appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input formControlName="firstName" tabindex="-1" matInput placeholder="Placeholder">
+        </mat-form-field>
+
+        <mat-form-field  appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input formControlName="lastName" tabindex="-1" matInput placeholder="Placeholder">
+    </mat-form-field> 
+
+            <mat-form-field  appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input formControlName="password" type="password" tabindex="-1" matInput placeholder="Placeholder">
+            </mat-form-field> 
+        <div class='registration-action'>
+                <button  mat-raised-button type="button" (click)='openLogin()' tabindex="-1">Sign In</button>
+                <button  mat-raised-button color="primary" [disabled]="registrationForm.invalid" type="submit" tabindex="-1">Register</button> 
+        </div>
+
+        <hr class="registration-hr-text" data-content="OR"> 
+
+        <button (click)="socialSignIn('google')" type="button" mat-raised-button tabindex="-1">Registration with Google</button>
+</form>
+  

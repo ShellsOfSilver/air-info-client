@@ -1,0 +1,21 @@
+<form  class='login-container'
+        (ngSubmit) = "onSubmit()" 
+        (keydown.enter)="onSubmit()" 
+        [formGroup]="loginForm">
+   <div class="header-container-sing-in">
+        <span class="ui-float-label header-container-input">
+            <input id="float-input-email" formControlName="email" type="text" size="30" pInputText> 
+            <label for="float-input-email">Email</label>
+        </span>
+
+        <span class="ui-float-label header-container-input">
+            <input id="float-input-password" formControlName="password" type="password" size="30" pInputText> 
+            <label for="float-input-password">Password</label>
+        </span>
+
+        <button pButton [disabled]="loginForm.invalid" type="submit" class="header-container-button">Sing in</button>
+      </div>
+</form>
+
+<p-toast [style]="{marginTop: '80px'}" position="top-center" key="tc"></p-toast>
+<p-toast [style]="{marginTop: '80px'}" position="top-center"></p-toast>

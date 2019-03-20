@@ -1,0 +1,102 @@
+.header-container {
+  background: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color:  #2C3A47;
+  padding: 20px;
+  box-shadow: 4px 2px 3px -1px rgba(0,0,0,.2), 0 1px 10px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.header-container-account {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.header-icon {
+  max-width: 500px;
+  max-height: 150px;
+}
+
+.header-container-links-manager{
+  cursor: pointer;
+    width: 170px;
+    padding: 10px;
+}
+
+.header-container-links-manager:hover{
+  background: ghostwhite;
+}
+
+.header-container-sing-in{
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.header-container-input{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.header-container-button{
+  height: 35px;
+  padding: 6px;
+}
+
+.header-container-links-icon{
+    margin: 0 auto;
+    border: 1px solid darkgrey;
+    border-radius: 50%;
+    padding: 17px 5px 5px 15px;
+    width: 70px;
+    height: 70px;
+    color: #0987ca;
+    cursor: pointer;
+    transition: 500ms cubic-bezier(0.165, 0.84, 0.44, 1)
+}
+
+.header-account-icon-plane {
+  padding-left: 3px;
+}
+
+.header-account-icon-port {
+  padding-left: 6px;
+}
+
+.header-account-icon-company{
+  padding-left: 5px;
+}
+
+.header-account-icon {
+  font-size: 28px;
+}
+
+.header-container-links {
+  display: flex;
+  width: 120px;
+  flex-direction: column;
+}
+
+.header-container-links-item {
+  padding: 10px;
+  font-family: sans-serif;
+  text-align: center;
+  cursor: pointer;
+}
+
+.header-container-links-wrapper:hover {
+  .header-container-links-icon{
+    border: 1px solid white;
+    transition: 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+}
+
+.user-profile{
+  position: relative;
+  top: -80px;
+  right: -25px;
+  color: #0987ca;
+}

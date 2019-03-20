@@ -1,0 +1,37 @@
+<div class="header-container">
+  <img class='header-icon' src="http://2.bp.blogspot.com/-BDEGTAIa4Vc/UFZG0H0rV4I/AAAAAAAANHg/qhfn9oPqYNY/s1600/Tulsa+International+Airport+logo.png" alt="">
+  <div class="header-container-account">
+
+    <nav class="header-container-links" *ngFor="let link of links">
+      <div [routerLink]="['/dashboard', link.path]" class="header-container-links-wrapper">
+        <div class = "header-container-links-icon">
+          <i [class]="link.icon"></i>
+        </div>
+        <div class="header-container-links-item">{{link.name}}</div>
+      </div>
+    </nav>
+
+    <div class="user-profile" (click)="op.toggle($event)">
+        <i class="pi pi-user"></i>
+    </div>
+
+
+    <p-overlayPanel #op [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'">
+        <div *ngIf="userStatus; else logIn">
+          <air-login></air-login>
+        </div>
+        <ng-template #logIn>
+            <nav *ngFor="let link of linksManager">
+              <div [routerLink]="['/dashboard', link.path]" (click)="op.hide()" class="header-container-links-manager">
+                {{link.name}}
+              </div>
+            </nav>
+            <div (click)="logOut()" class="header-container-links-manager">
+              Log out
+            </div>
+        </ng-template>
+
+    </p-overlayPanel>
+
+  </div>
+</div> 
