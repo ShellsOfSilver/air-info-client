@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {UserService} from './user.service';
 import * as _ from 'lodash';
-import { IAirPlane } from '../dashboard/airplane/airplane.component';
+import { IAirPlane } from '../dashboard/airplane/admin-airplane/admin-airplane.component';
 @Injectable({
   providedIn: 'root'
 })

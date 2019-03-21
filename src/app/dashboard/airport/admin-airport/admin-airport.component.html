@@ -31,37 +31,37 @@
             <form (ngSubmit) = "onSubmit()" style="height: 380px;" [formGroup]="portForm">
             <div class="ui-g-12">
                 <div class="ui-g-2">
-                    <label for="firstName">FirstName</label>
+                    <label for="name">Name</label>
                 </div>
                 <div class="ui-g-10">
-                    <input pInputText id="firstName" formControlName="firstName" />
+                    <input pInputText id="name" formControlName="name" />
                 </div>
             </div>
-
+            
             <div class="ui-g-12">
                 <div class="ui-g-2">
-                    <label for="lastName">LastName</label>
+                    <label for="country">Country</label>
                 </div>
                 <div class="ui-g-10">
-                    <input pInputText id="lastName" formControlName="lastName" />
+                  <p-dropdown id="country" [options]="countries" formControlName="country" [style]="{'width':'100%'}" filter="true">
+                    <ng-template let-item pTemplate="selectedItem"> 
+                        <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
+                    </ng-template>
+                    <ng-template let-country pTemplate="item">
+                        <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+                            <div style="font-size:14px;float:right;margin-top:4px">{{country.label}}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+      
                 </div>
             </div>
-
             <div class="ui-g-12">
                 <div class="ui-g-2">
-                    <label for="email">Email</label>
+                    <label for="description">Description</label>
                 </div>
                 <div class="ui-g-10">
-                    <input pInputText id="email" formControlName="email" />
-                </div>
-            </div>
-
-            <div class="ui-g-12">
-                <div class="ui-g-2">
-                    <label for="password">Password</label>
-                </div>
-                <div class="ui-g-10">
-                    <input pInputText id="password" formControlName="password" />
+                    <textarea pInputTextarea id="description" formControlName="description"  ></textarea>
                 </div>
             </div>
             </form>

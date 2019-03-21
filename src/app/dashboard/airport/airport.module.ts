@@ -5,17 +5,32 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AirPortComponent } from './airport.component';
 import { AirPortRoutingModule } from './airport-routing.module';
-
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import {DropdownModule} from 'primeng/dropdown';
+import { ClientAirportComponent } from './client-airport/client-airport.component';
+import { AdminAirportComponent } from './admin-airport/admin-airport.component';
 
 @NgModule({
   declarations: [
-    AirPortComponent
+    AirPortComponent,
+    ClientAirportComponent,
+    AdminAirportComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    AirPortRoutingModule
+    AirPortRoutingModule,
+    TableModule,
+    ButtonModule,
+    InputTextModule,
+    DialogModule,
+    InputTextareaModule,
+    DropdownModule,
   ]
 })
 export class AirPortModule {

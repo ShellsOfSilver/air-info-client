@@ -8,10 +8,14 @@ import { AirPlaneRoutingModule } from './airplane-routing.module';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import { AdminAirplaneComponent } from './admin-airplane/admin-airplane.component';
+import { ClientAirplaneComponent } from './client-airplane/client-airplane.component';
 
 @NgModule({
   declarations: [
-    AirPlaneComponent
+    AirPlaneComponent,
+    AdminAirplaneComponent,
+    ClientAirplaneComponent
   ],
   imports: [
     CommonModule,

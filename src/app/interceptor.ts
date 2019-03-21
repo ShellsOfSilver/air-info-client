@@ -18,11 +18,13 @@ export class RootHttpInterceptor implements HttpInterceptor {
 
   addAuthHeader(request: HttpRequest<any>): HttpRequest<any> {
     const user = this.userService.getCurrentUser();
-    request = request.clone({url: `http://localhost:3000/${request.url}`});
+    if(!request.url.startsWith('http')){
+      request = request.clone({url: `http://localhost:3000/${request.url}`});
+    }
     if(user){
       request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + user.accessToken) });
     }
-    console.log(request)
+    //console.log(request)
     return request;
   }
 
@@ -30,7 +32,7 @@ export class RootHttpInterceptor implements HttpInterceptor {
     return next.handle(this.addAuthHeader(req)).pipe(
       map((event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {
-              console.log('event--->>>', event);
+              //console.log('event--->>>', event);
           }
           return event;
       }));

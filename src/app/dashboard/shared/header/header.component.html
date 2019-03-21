@@ -3,7 +3,7 @@
   <div class="header-container-account">
 
     <nav class="header-container-links" *ngFor="let link of links">
-      <div [routerLink]="['/dashboard', link.path]" class="header-container-links-wrapper">
+      <div [routerLink]="link.path" class="header-container-links-wrapper">
         <div class = "header-container-links-icon">
           <i [class]="link.icon"></i>
         </div>
@@ -22,7 +22,7 @@
         </div>
         <ng-template #logIn>
             <nav *ngFor="let link of linksManager">
-              <div [routerLink]="['/dashboard', link.path]" (click)="op.hide()" class="header-container-links-manager">
+              <div [routerLink]="link.path" (click)="op.hide()" class="header-container-links-manager">
                 {{link.name}}
               </div>
             </nav>

@@ -3,11 +3,15 @@ import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {  AirlineComponent } from './airline.component';
 import {  AirlineRoutingModule } from './airline-routing.module';
+import { AdminAirlineComponent } from './admin-airline/admin-airline.component';
+import { ClientAirlineComponent } from './client-airline/client-airline.component';
 
 
 @NgModule({
   declarations: [
-    AirlineComponent
+    AirlineComponent,
+    AdminAirlineComponent,
+    ClientAirlineComponent
   ],
   imports: [
     CommonModule,

@@ -1,41 +1,44 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { UserApiService } from 'src/app/service/userApi.service';
+import { AirPortService } from 'src/app/service/airport.service';
 
-export interface IUser {
+export interface IAirPort {
   readonly _id: String;
-  readonly firstName: String;
-  readonly lastName: String;
-  readonly password: String;
-  readonly email: String;
+  readonly description: String;
+  readonly country: String;
+  readonly name: String;
 }
-
 @Component({
-  selector: 'ps-user-manager',
-  templateUrl: './user-manager.component.html',
-  styleUrls: ['./user-manager.component.scss']
+  selector: 'air-admin-airport',
+  templateUrl: './admin-airport.component.html',
+  styleUrls: ['./admin-airport.component.scss']
 })
-export class UserManagerComponent implements OnInit {
+export class AdminAirportComponent implements OnInit {
   countries = [];
   operetion = "";
   displayDialog: boolean;
-  port: IUser;
+  port: IAirPort;
   selectedport;
   newport: boolean;
-  ports: IUser[];
+  ports: IAirPort[];
   cols: any[];
   portForm: FormGroup;
   constructor(
-      private userService: UserApiService,
+      private portService: AirPortService,
       private fb: FormBuilder,) { }
 
   loadNewList(){
-    this.userService.getUser().then((ports:IUser[]) => {
+    this.portService.getPort().then((ports:IAirPort[]) => {
         this.ports = ports;
     });
   }
   ngOnInit() {
 
+    this.portService.getCountries().then((suc:any)=>{
+      this.countries = suc.map((e:any)=>{
+        return {"label":e.name,"value":e.name}
+      });
+    });
 
     this.loadNewList();
 
@@ -43,44 +46,39 @@ export class UserManagerComponent implements OnInit {
         _id: new FormControl("null", [
             Validators.required,
         ]),
-        firstName: new FormControl("", [
+        name: new FormControl("", [
           Validators.required,
-          Validators.minLength(2),
+          Validators.minLength(3),
           Validators.maxLength(32)
         ]),
-        lastName: new FormControl("", [
+        description: new FormControl("", [
             Validators.required,
-            Validators.minLength(2),
+            Validators.minLength(3),
+            Validators.maxLength(500)
+        ]),
+        country: new FormControl("", [
+            Validators.required,
+            Validators.minLength(3),
             Validators.maxLength(32)
         ]),
-        password: new FormControl("", [
-            Validators.required,
-            Validators.minLength(2),
-            Validators.maxLength(32)
-        ]),email: new FormControl("", [
-          Validators.required,
-          Validators.email
-        ]),
+      
       });
 
     this.cols = [
-        { field: 'firstName', header: 'FirstName' },
-        { field: 'lastName', header: 'LastName' },
-        { field: 'email', header: 'Email' },
-        //{ field: 'password', header: 'Password' }
+        { field: 'name', header: 'Name' },
+        { field: 'description', header: 'Description' },
+        { field: 'country', header: 'Country' }
     ];
 }
-
 
 showDialogToAdd() {
     this.operetion = "newItem"
     this.newport = true;
     this.port = {
         _id:"11",
-        firstName:"",
-        lastName:"",
-        password: "",
-        email: ""
+        name:"",
+        description:"",
+        country: ""
     };
     this.portForm.setValue(this.port);
     this.displayDialog = true;
@@ -92,13 +90,13 @@ onSubmit(){
 save() {
     console.log(this.operetion)
     if(this.operetion === "oldItem"){
-        this.userService.updateUser(this.portForm.value).then(e => {
+        this.portService.updatePort(this.portForm.value).then(e => {
             this.loadNewList();
         }, err=>{
             console.log(err)
         });
     }else {
-        this.userService.addUser(this.portForm.value).then(e => {
+        this.portService.addPort(this.portForm.value).then(e => {
             this.loadNewList();
         }, err=>{
             console.log(err)
@@ -110,7 +108,7 @@ save() {
 
 delete() {
     if(this.operetion === "oldItem"){
-        this.userService.removeUser(this.portForm.value).then(e => {
+        this.portService.removePort(this.portForm.value).then(e => {
             this.loadNewList();
         }, err=>{
             console.log(err)
@@ -127,13 +125,12 @@ onRowSelect(event) {
     this.displayDialog = true;
 }
 
-cloneport(c: IUser): IUser {
+cloneport(c: IAirPort): IAirPort {
     let port = {
-      _id:"",
-      firstName:"",
-      lastName:"",
-      password: "",
-      email: ""
+        _id:"",
+        name:"",
+        description:"",
+        country: ""
     };
     for (let prop in c) {
         if(prop!=="__v")

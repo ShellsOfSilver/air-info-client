@@ -1,9 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AirPortComponent } from './airport.component';
+import { AuthGuard } from '../auth.guard';
+import { AdminAirportComponent } from './admin-airport/admin-airport.component';
+import { ClientAirportComponent } from './client-airport/client-airport.component';
 
 const routes: Routes = [
-  {path: '', component: AirPortComponent} 
+  {path: '', component: AirPortComponent, children: [ 
+    {path: 'admin', component: AdminAirportComponent, canActivate: [AuthGuard]},
+    {path: 'view', component: ClientAirportComponent},
+  ]} 
 ];
 
 @NgModule({

@@ -15,18 +15,18 @@ export class HeaderComponent implements OnInit {
   userStatus = false;
 
   links = [
-    {path:"airline", name: "Airline", icon: "fas fa-location-arrow fa-lg"},
-    {path:"airport", name: "Airport", icon: "fas fa-suitcase-rolling fa-lg header-account-icon-port"},
-    {path:"airplane", name: "Airplane", icon: "fas fa-plane fa-lg header-account-icon-plane"},
-    {path:"aircompany", name: "Aircompany", icon: "fas fa-building fa-lg header-account-icon-company"}
+    {path:['/dashboard/airline','view'], name: "Airline", icon: "fas fa-location-arrow fa-lg"},
+    {path:['/dashboard/airport','view'], name: "Airport", icon: "fas fa-suitcase-rolling fa-lg header-account-icon-port"},
+    {path:['/dashboard/airplane','view'], name: "Airplane", icon: "fas fa-plane fa-lg header-account-icon-plane"},
+    {path:['/dashboard/aircompany','view'], name: "Aircompany", icon: "fas fa-building fa-lg header-account-icon-company"}
   ];
 
   linksManager = [
-    {path:"m_airline", name: "Airline manager"},
-    {path:"m_airport", name: "Airport manager"},
-    {path:"m_airplane", name: "Airplane manager"},
-    {path:"m_aircompany", name: "Aircompany manager"},
-    {path:"m_user", name: "User manager"}
+    {path:['/dashboard/airline','admin'], name: "Airline manager"},
+    {path:['/dashboard/airport','admin'], name: "Airport manager"},
+    {path:['/dashboard/airplane','admin'], name: "Airplane manager"},
+    {path:['/dashboard/aircompany','admin'], name: "Aircompany manager"},
+    {path:['/dashboard','user'], name: "User manager"}
   ];
 
   constructor(
