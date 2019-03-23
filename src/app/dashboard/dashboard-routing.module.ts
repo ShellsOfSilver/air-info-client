@@ -18,6 +18,7 @@ const routes: Routes = [
       {path: 'user',
         loadChildren: './user-manager/user-manager.module#UserManagerModule', 
         canActivate: [AuthGuard]},
+      {path: '', redirectTo: 'airline/view', pathMatch: 'full'},
     ]
   }
 ];

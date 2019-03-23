@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { AirCompanyService } from 'src/app/service/aircompany.service';
 import { AirPlaneService } from 'src/app/service/airplane.service';
 import { AirPortService } from 'src/app/service/airport.service';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 export interface IAircompany {
   readonly _id: String;
@@ -14,7 +15,8 @@ export interface IAircompany {
 @Component({
   selector: 'air-admin-aircompany',
   templateUrl: './admin-aircompany.component.html',
-  styleUrls: ['./admin-aircompany.component.scss']
+  styleUrls: ['./admin-aircompany.component.scss'], 
+  providers: [MessageService]
 })
 export class AdminAircompanyComponent implements OnInit {
 
@@ -33,6 +35,7 @@ export class AdminAircompanyComponent implements OnInit {
       private companyService: AirCompanyService,
       private airPlane: AirPlaneService,
       private airPortService: AirPortService,
+      private messageService: MessageService,
       private fb: FormBuilder,) { }
 
   loadNewList(){
@@ -159,7 +162,8 @@ delete() {
         this.companyService.removeCompany(this.companyForm.value).then(e => {
             this.loadNewList();
         }, err=>{
-            console.log(err)
+          this.messageService.add({key:"error" , severity:'error', summary: 'Error Message', detail: err.error.message});
+          console.log(err)
         });
     }
     this.displayDialog = false;

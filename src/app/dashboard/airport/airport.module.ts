@@ -13,7 +13,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import {DropdownModule} from 'primeng/dropdown';
 import { ClientAirportComponent } from './client-airport/client-airport.component';
 import { AdminAirportComponent } from './admin-airport/admin-airport.component';
-
+import {ToastModule} from 'primeng/toast';
 @NgModule({
   declarations: [
     AirPortComponent,
@@ -31,6 +31,7 @@ import { AdminAirportComponent } from './admin-airport/admin-airport.component';
     DialogModule,
     InputTextareaModule,
     DropdownModule,
+    ToastModule
   ]
 })
 export class AirPortModule {

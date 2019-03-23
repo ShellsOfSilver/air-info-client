@@ -10,7 +10,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import { AdminAirplaneComponent } from './admin-airplane/admin-airplane.component';
 import { ClientAirplaneComponent } from './client-airplane/client-airplane.component';
-
+import {ToastModule} from 'primeng/toast';
 @NgModule({
   declarations: [
     AirPlaneComponent,
@@ -27,6 +27,7 @@ import { ClientAirplaneComponent } from './client-airplane/client-airplane.compo
     InputTextModule,
     DialogModule,
     InputTextareaModule,
+    ToastModule
   ]
 })
 export class AirPlaneModule {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AirPlaneService } from 'src/app/service/airplane.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 export interface IAirPlane {
   readonly _id: String;
@@ -21,7 +22,8 @@ export interface ICapacity {
 @Component({
   selector: 'air-admin-airplane',
   templateUrl: './admin-airplane.component.html',
-  styleUrls: ['./admin-airplane.component.scss']
+  styleUrls: ['./admin-airplane.component.scss'],
+  providers: [MessageService]
 })
 export class AdminAirplaneComponent implements OnInit {
 
@@ -34,6 +36,7 @@ export class AdminAirplaneComponent implements OnInit {
   cols: any[];
   planeForm: FormGroup;
   constructor(
+        private messageService: MessageService,
       private planeService: AirPlaneService,
       private fb: FormBuilder,) { }
 
@@ -154,6 +157,7 @@ delete() {
         this.planeService.removePlane(this.planeForm.value).then(e => {
             this.loadNewList();
         }, err=>{
+            this.messageService.add({key:"error" , severity:'error', summary: 'Error Message', detail: err.error.message});
             console.log(err)
         });
     }

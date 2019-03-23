@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AirPortService } from 'src/app/service/airport.service';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 export interface IAirPort {
   readonly _id: String;
@@ -11,7 +12,8 @@ export interface IAirPort {
 @Component({
   selector: 'air-admin-airport',
   templateUrl: './admin-airport.component.html',
-  styleUrls: ['./admin-airport.component.scss']
+  styleUrls: ['./admin-airport.component.scss'],
+  providers: [MessageService]
 })
 export class AdminAirportComponent implements OnInit {
   countries = [];
@@ -25,6 +27,7 @@ export class AdminAirportComponent implements OnInit {
   portForm: FormGroup;
   constructor(
       private portService: AirPortService,
+      private messageService: MessageService,
       private fb: FormBuilder,) { }
 
   loadNewList(){
@@ -111,6 +114,7 @@ delete() {
         this.portService.removePort(this.portForm.value).then(e => {
             this.loadNewList();
         }, err=>{
+            this.messageService.add({key:"error" , severity:'error', summary: 'Error Message', detail: err.error.message});
             console.log(err)
         });
     }

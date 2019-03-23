@@ -3,8 +3,10 @@
   <div class="header-container-account">
 
     <nav class="header-container-links" *ngFor="let link of links">
-      <div [routerLink]="link.path" class="header-container-links-wrapper">
-        <div class = "header-container-links-icon">
+      <div [routerLink]="link.path" (click)="linkStyleView = link; linkStyle = ''" class="header-container-links-wrapper">
+        <div class = "header-container-links-icon"
+        [ngClass]= "{'header-container-links-icon-active': linkStyleView === link, 'header-container-links-icon-disactive': linkStyleView !== link}"
+        >
           <i [class]="link.icon"></i>
         </div>
         <div class="header-container-links-item">{{link.name}}</div>
@@ -22,7 +24,8 @@
         </div>
         <ng-template #logIn>
             <nav *ngFor="let link of linksManager">
-              <div [routerLink]="link.path" (click)="op.hide()" class="header-container-links-manager">
+              <div [routerLink]="link.path" (click)="op.hide(); linkStyle = link; linkStyleView = ''" 
+              [ngClass]= "{'header-container-links-manager-active': linkStyle === link, 'header-container-links-manager': linkStyle !== link}">
                 {{link.name}}
               </div>
             </nav>

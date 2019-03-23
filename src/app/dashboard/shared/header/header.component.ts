@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
     {path:['/dashboard/airplane','admin'], name: "Airplane manager"},
     {path:['/dashboard/aircompany','admin'], name: "Aircompany manager"},
     {path:['/dashboard','user'], name: "User manager"}
-  ];
+  ]; 
 
   constructor(
     public userService: UserService,
@@ -35,8 +35,27 @@ export class HeaderComponent implements OnInit {
     private authService: AuthServiceAWS) {
   }
   @ViewChild('op') op:OverlayPanel;
-
+  linkStyle = {};
+  linkStyleView = {};
   ngOnInit() {
+    const url = this.router.parseUrl(this.router.url).root.children.primary.segments;
+    let testUrl = [];
+    try{
+    testUrl = [`/${url[0].path}/${url[1].path}`, url[2].path];
+    } catch  (e){
+      testUrl = [`/${url[0].path}`, url[1].path];
+    }
+    this.linksManager.forEach(e => {
+      if(JSON.stringify(testUrl) === JSON.stringify(e.path)){
+       this.linkStyle = e;
+      }
+     });
+    this.links.forEach(e => {
+     if(JSON.stringify(testUrl) === JSON.stringify(e.path)){
+      this.linkStyleView = e;
+     }
+    });
+    
     this.userService.getCurrentUserObs().subscribe(suc=>{
       if(suc){
         this.op.hide();

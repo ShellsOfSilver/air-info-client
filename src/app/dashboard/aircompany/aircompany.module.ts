@@ -12,7 +12,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import {MultiSelectModule} from 'primeng/multiselect';
 import { ClientAircompanyComponent } from './client-aircompany/client-aircompany.component';
 import { AdminAircompanyComponent } from './admin-aircompany/admin-aircompany.component';
-
+import {ToastModule} from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -31,6 +31,7 @@ import { AdminAircompanyComponent } from './admin-aircompany/admin-aircompany.co
     DialogModule,
     InputTextareaModule,
     MultiSelectModule,
+    ToastModule
   ]
 })
 export class AirCompanyModule {
