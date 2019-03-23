@@ -1,3 +1,147 @@
-<p>
-  admin-airline works!
-</p>
+<p-table [columns]="cols" [value]="planes" *ngIf="loadCount>=4"
+    class="air-table"
+ selectionMode="single" [(selection)]="selectedAirLine" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15">
+        <ng-template pTemplate="caption">
+            List of AirLine
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+                <td *ngFor="let col of columns" style="word-break: break-word;">
+                    {{showData(rowData,col)}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary" let-rowData>
+            <div style="text-align:left">
+                <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+            </div>
+        </ng-template>
+    </p-table>
+    
+    <p-dialog header="AirLine Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [style]="{maxWidth: '700px'}">
+        <div class="ui-g ui-fluid" *ngIf="plane">
+            <form (ngSubmit) = "onSubmit()" [formGroup]="airLineForm">
+            <div class="ui-g-12">
+                <div class="ui-g-2">
+                    <label for="flights">Flight code</label>
+                </div>
+                <div class="ui-g-10">
+                    <input pInputText id="flights" formControlName="flights" />
+                </div>
+            </div>
+            <div class="ui-g-12">
+              <div class="ui-g-2">
+                  <label for="status">Status</label>
+              </div>
+              <div class="ui-g-10">
+                <p-dropdown [style]="{'width':'100%'}" id="status" [options]="listStatus" formControlName="status" placeholder="Select a Status" 
+                optionLabel="name" [showClear]="true"></p-dropdown>
+              </div>
+            </div>
+            <div class="ui-g-12">
+              <div class="ui-g-2">
+                  <label for="flightType">Flight type</label>
+              </div>
+              <div class="ui-g-10">
+                <p-dropdown [style]="{'width':'100%'}" id="flightType" [options]="listTypes" formControlName="flightType" placeholder="Select a Type" 
+                optionLabel="name" [showClear]="true"></p-dropdown>
+              </div>
+            </div>
+            <div class="ui-g-12">
+              <div class="ui-g-2">
+                  <label for="note">Note</label>
+              </div>
+              <div class="ui-g-10">
+                  <input pInputText id="note" formControlName="note" />
+              </div>
+          </div>
+
+          <div formGroupName="direction">
+            <div class="ui-g-12">
+                <div class="ui-g-2">
+                    <label for="fromIdAirPort">From AirPort</label>
+                </div>
+                <div class="ui-g-10">
+                    <p-dropdown [style]="{'width':'100%'}" id="fromIdAirPort" 
+                    [options]="airPorts" formControlName="fromIdAirPort" placeholder="Select From" 
+                    optionLabel="name" filter="true" [showClear]="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-2">
+                    <label for="toIdAirPort">To AirPort</label>
+                </div>
+                <div class="ui-g-10">
+                    <p-dropdown [style]="{'width':'100%'}" id="toIdAirPort" 
+                    [options]="airPorts" formControlName="toIdAirPort" placeholder="Select To" 
+                    optionLabel="name" filter="true" [showClear]="true"></p-dropdown>
+                </div>
+            </div>
+          </div>
+
+          <div class="ui-g-12">
+            <div class="ui-g-2">
+                <label for="idAirCompany">AirCompany</label>
+            </div>
+            <div class="ui-g-10">
+                <p-dropdown [style]="{'width':'100%'}" id="toIdAirPort" 
+                    [options]="airCompany" formControlName="idAirCompany" placeholder="Select AirCompany" 
+                    optionLabel="name" filter="true" [showClear]="true"></p-dropdown>
+            </div>
+           </div>
+            <div class="ui-g-12">
+              <div class="ui-g-2">
+                  <label for="idPlane">Plane</label>
+              </div>
+              <div class="ui-g-10">
+                  <p-dropdown [style]="{'width':'100%'}" id="toIdAirPort" 
+                    [options]="airPlane" formControlName="idPlane" placeholder="Select AirPlane" 
+                    optionLabel="name" filter="true" [showClear]="true"></p-dropdown>
+              </div>
+          </div>
+          <div formGroupName="schedule">
+              <div class="ui-g-12">
+                  <div class="ui-g-2">
+                      <label for="startFly">Start Fly</label>
+                  </div>
+                  <div class="ui-g-10">
+                      <input pInputText id="startFly" formControlName="startFly" />
+                  </div>
+              </div>
+              <div class="ui-g-12">
+                  <div class="ui-g-2">
+                      <label for="endFly">End Fly</label>
+                  </div>
+                  <div class="ui-g-10">
+                      <input pInputText id="endFly" formControlName="endFly" />
+                  </div>
+              </div>
+              <div class="ui-g-12">
+                  <div class="ui-g-2">
+                      <label for="days">Days</label>
+                  </div>
+                  <div class="ui-g-10 days-list">
+                      <div *ngFor="let day of listDays" >
+                          <div class="days-list-item" [ngClass]= "{'select-day':day.select, 'unselect-day':!day.select}" 
+                          (click)="setSelect(day)">{{day.value}}</div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            </form>
+        </div>
+        <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="submit" pButton icon="fa fa-close" (click)="delete()" label="Delete"></button>
+                <button type="submit" [disabled]="airLineForm.invalid" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
+            </div>
+        </p-footer>
+    </p-dialog>
