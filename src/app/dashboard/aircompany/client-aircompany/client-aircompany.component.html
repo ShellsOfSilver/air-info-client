@@ -1,3 +1,45 @@
-<p>
-  client-aircompany works!
-</p>
+<div class="limiter" *ngIf="airCompany">
+    <div class="container-table100">
+      <div class="wrap-table100">
+          <div class="table">
+  
+            <div class="row header">
+              <div class="cell">
+                Name
+              </div>
+              <div class="cell">
+                 Address
+              </div>
+            </div>
+  
+            <div class="row" *ngFor="let air of airCompany" (click)="showDialog(air)">
+              <div class="cell" data-title="Name">
+                {{air.name}}
+              </div>
+              <div class="cell" data-title="Address">
+                {{air.address}}
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <p-dialog header="Details" [dismissableMask]="true" (onHide)="onHideDialog()"
+  [(visible)]="display" [modal]="true" [responsive]="true"  [width]="728" [minY]="70" [baseZIndex]="10000">
+    <div *ngIf="selectAirCompany">
+      <div class="dialog-item"><span style="font-weight: bold;">Name: </span> {{selectAirCompany.name}}</div>
+      <div class="dialog-item"><span style="font-weight: bold;">Address: </span> {{selectAirCompany.address}}</div>
+      <div  *ngIf="selectAirCompany.listAirPorts" class="dialog-item"><span style="font-weight: bold;">Ports: </span>
+          <div *ngFor="let port of selectAirCompany.listAirPorts">
+              <a *ngIf="port" [routerLink]="['/dashboard/airport',port._id]" >{{port?.name}} ({{port?.country}})</a>
+          </div>
+        </div>
+      <div *ngIf="selectAirCompany.listPlanes" class="dialog-item"><span style="font-weight: bold;">Planes: </span> 
+        <div *ngFor="let plane of selectAirCompany.listPlanes">
+            <a *ngIf="plane" [routerLink]="['/dashboard/airplane',plane._id]" >{{plane?.name}}</a>
+        </div>
+      </div>
+    </div>
+  </p-dialog>

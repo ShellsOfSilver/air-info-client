@@ -1,3 +1,49 @@
-<p>
-  client-airplane works!
-</p>
+<div class="limiter" *ngIf="airPlane">
+    <div class="container-table100">
+      <div class="wrap-table100">
+          <div class="table">
+  
+            <div class="row header">
+              <div class="cell">
+                Name
+              </div>
+              <div class="cell">
+                Max Distance
+              </div>
+              <div class="cell">
+                Max Speed
+              </div>
+            </div>
+  
+            <div class="row" *ngFor="let air of airPlane" (click)="showDialog(air)">
+              <div class="cell" data-title="Name">
+                {{air.name}}
+              </div>
+              <div class="cell" data-title="Max Distance">
+                {{air.maxDistance}} km
+              </div>
+              <div class="cell" data-title="Max Speed">
+                {{air.maxSpeed}} km/hour
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <p-dialog header="Details" [dismissableMask]="true" (onHide)="onHideDialog()"
+  [(visible)]="display" [modal]="true" [responsive]="true"  [width]="728" [minY]="70" [baseZIndex]="10000">
+    <div *ngIf="selectAirPlane">
+      <div class="dialog-item"><span style="font-weight: bold;">Name: </span> {{selectAirPlane.name}}</div>
+      <div class="dialog-item"><span style="font-weight: bold;">Max Distance: </span> {{selectAirPlane.maxDistance}} km</div>
+      <div class="dialog-item"><span style="font-weight: bold;">Max Speed: </span> {{selectAirPlane.maxSpeed}} km/hour</div>
+      <div class="dialog-item"><span style="font-weight: bold;">Capacity: </span> 
+        <div><span style="font-weight: bold;margin-left: 20px;">First: </span> {{selectAirPlane.capacity.first}}</div>
+        <div><span style="font-weight: bold;margin-left: 20px;">business: </span> {{selectAirPlane.capacity.business}}</div>
+        <div><span style="font-weight: bold;margin-left: 20px;">Premium Economy: </span> {{selectAirPlane.capacity.premiumEconomy}}</div>
+        <div><span style="font-weight: bold;margin-left: 20px;">Economy: </span> {{selectAirPlane.capacity.economy}}</div>
+      </div>
+      <div class="dialog-item"><span style="font-weight: bold;">Description: </span> {{selectAirPlane.description}}</div>
+    </div>
+  </p-dialog>

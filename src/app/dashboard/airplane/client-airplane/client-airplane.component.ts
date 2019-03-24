@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AirPlaneService } from 'src/app/service/airplane.service';
+import { IAirPlane } from '../admin-airplane/admin-airplane.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'air-client-airplane',
@@ -7,9 +10,45 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClientAirplaneComponent implements OnInit {
 
-  constructor() { }
+  selectAirPlane: IAirPlane;
+  airPlane: IAirPlane[];
+  display: boolean = false; 
+  url;
+
+  constructor(private planeService: AirPlaneService,private router: Router,) { 
+      this.url = this.router.parseUrl(this.router.url).root.children.primary.segments;
+    }
+
+  loadNewList(){
+    this.planeService.getPlanes().then((planes:IAirPlane[]) => {
+        this.airPlane = planes;
+    });
+  }
 
   ngOnInit() {
+    this.loadNewList();
+    if(this.url[2].path!=='view'){
+      this.planeService.getPlanesId(this.url[2].path).then(suc=>{
+        this.selectAirPlane = suc[0];
+        this.display = true;
+      }, err=>{
+        this.router.navigate(['/dashboard/airplane','view']);
+      })
+    }
+  }
+
+  onHideDialog(){
+    this.router.navigate(['/dashboard/airplane','view']);
+  }
+
+  showDialog(airPort){
+    this.router.navigate(['/dashboard/airplane',airPort._id]);
+      this.planeService.getPlanesId(airPort._id).then(suc=>{
+        this.selectAirPlane = suc[0];
+        this.display = true;
+      }, err=>{
+        this.router.navigate(['/dashboard/airplane','view']);
+      })
   }
 
 }

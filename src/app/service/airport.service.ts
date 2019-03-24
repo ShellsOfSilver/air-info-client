@@ -14,6 +14,10 @@ export class AirPortService {
     return await this.http.get(`api/v1/airPort/list`).toPromise(); 
   } 
 
+  async getPortId(id) {
+    return await this.http.get(`api/v1/airPort/${id}`).toPromise(); 
+  } 
+
   async getCountries() {
     return await this.http.get('api/v1/airPort/countries' ).toPromise(); 
   } 

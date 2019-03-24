@@ -14,6 +14,10 @@ export class AirPlaneService {
     return await this.http.get(`api/v1/airPlane/list`).toPromise(); 
   } 
 
+  async getPlanesId(id) {
+    return await this.http.get(`api/v1/airPlane/${id}`).toPromise(); 
+  } 
+
   async removePlane(planeForm) {
     console.log()
     return await this.http.delete(`api/v1/airPlane/${planeForm._id}`).toPromise(); 

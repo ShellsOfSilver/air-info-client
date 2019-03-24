@@ -1,3 +1,36 @@
-<p>
-  client-airport works!
-</p>
+<div class="limiter" *ngIf="airPorts">
+    <div class="container-table100">
+      <div class="wrap-table100">
+          <div class="table">
+  
+            <div class="row header">
+              <div class="cell">
+                Name
+              </div>
+              <div class="cell">
+                Country
+              </div>
+            </div>
+  
+            <div class="row" *ngFor="let air of airPorts" (click)="showDialog(air)">
+              <div class="cell" data-title="Name">
+                {{air.name}}
+              </div>
+              <div class="cell" data-title="Country">
+                {{air.country}}
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <p-dialog header="Details" [dismissableMask]="true" (onHide)="onHideDialog()"
+  [(visible)]="display" [modal]="true" [responsive]="true"  [width]="728" [minY]="70" [baseZIndex]="10000">
+    <div *ngIf="selectAirPort">
+      <div class="dialog-item"><span style="font-weight: bold;">Name: </span> {{selectAirPort.name}}</div>
+      <div class="dialog-item"><span style="font-weight: bold;">Country: </span> {{selectAirPort.country}}</div>
+      <div class="dialog-item"><span style="font-weight: bold;">Description: </span> {{selectAirPort.description}}</div>
+    </div>
+  </p-dialog>

@@ -14,6 +14,14 @@ export class AirCompanyService {
     return await this.http.get(`api/v1/airCompany/list`).toPromise(); 
   } 
 
+  async getCompanyId(id) {
+    return await this.http.get(`api/v1/airCompany/${id}`).toPromise(); 
+  } 
+
+  async getCompanyForm() {
+    return await this.http.get(`api/v1/airCompany/form`).toPromise(); 
+  } 
+
   async removeCompany(companyForm) {
     console.log()
     return await this.http.delete(`api/v1/airCompany/${companyForm._id}`).toPromise(); 

@@ -9,6 +9,7 @@ const routes: Routes = [
   {path: '', component: AirCompanyComponent, children: [ 
     {path: 'admin', component: AdminAircompanyComponent, canActivate: [AuthGuard]},
     {path: 'view', component: ClientAircompanyComponent},
+    {path: ':id', component: ClientAircompanyComponent},
   ]} 
 ];
 

@@ -1,7 +1,7 @@
 import {Component, OnInit, ChangeDetectorRef, ViewChild} from '@angular/core';
 import {UserService} from 'src/app/service/user.service';
 import {AuthServiceAWS} from 'src/app/service/auth.service';
-import { Router } from '@angular/router';
+import { Router, ResolveStart, ResolveEnd, NavigationEnd } from '@angular/router';
 import { OverlayPanel } from 'primeng/overlaypanel';
 
 @Component({
@@ -33,11 +33,36 @@ export class HeaderComponent implements OnInit {
     public userService: UserService,
     private router: Router,
     private authService: AuthServiceAWS) {
+      router.events.subscribe((val) => {
+        if(val instanceof ResolveStart || val instanceof ResolveEnd || val instanceof NavigationEnd ){
+          this.linkStyle = {};
+          this.linkStyleView = {};
+          this.checkRouts();
+        }
+        
+    });
+
   }
+
   @ViewChild('op') op:OverlayPanel;
   linkStyle = {};
   linkStyleView = {};
   ngOnInit() {
+    this.checkRouts()
+    this.userService.getCurrentUserObs().subscribe(suc=>{
+      if(suc){
+        this.op.hide();
+        this.userStatus = false;
+      } else {
+        this.op.hide();
+        this.userStatus = true;
+      }
+    }, err=>{
+      console.log(err);
+    });
+  }
+
+  checkRouts(){
     const url = this.router.parseUrl(this.router.url).root.children.primary.segments;
     let testUrl = [];
     try{
@@ -51,21 +76,9 @@ export class HeaderComponent implements OnInit {
       }
      });
     this.links.forEach(e => {
-     if(JSON.stringify(testUrl) === JSON.stringify(e.path)){
+     if(JSON.stringify(testUrl) === JSON.stringify(e.path) || (testUrl[0] === e.path[0] && testUrl[1] !== "admin") ){
       this.linkStyleView = e;
      }
-    });
-    
-    this.userService.getCurrentUserObs().subscribe(suc=>{
-      if(suc){
-        this.op.hide();
-        this.userStatus = false;
-      } else {
-        this.op.hide();
-        this.userStatus = true;
-      }
-    }, err=>{
-      console.log(err);
     });
   }
 

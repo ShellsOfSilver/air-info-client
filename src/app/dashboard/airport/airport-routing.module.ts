@@ -8,6 +8,7 @@ import { ClientAirportComponent } from './client-airport/client-airport.componen
 const routes: Routes = [
   {path: '', component: AirPortComponent, children: [ 
     {path: 'admin', component: AdminAirportComponent, canActivate: [AuthGuard]},
+    {path: ':id', component: ClientAirportComponent},
     {path: 'view', component: ClientAirportComponent},
   ]} 
 ];

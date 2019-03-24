@@ -14,6 +14,14 @@ export class AirLineService {
     return await this.http.get(`api/v1/airLine/list`).toPromise(); 
   } 
 
+  async getAirLineId(id) {
+    return await this.http.get(`api/v1/airLine/${id}`).toPromise(); 
+  } 
+
+  async getFormAirLine() {
+    return await this.http.get(`api/v1/airLine/form`).toPromise(); 
+  } 
+
   async removeAirLine(airLineForm) {
     return await this.http.delete(`api/v1/airLine/${airLineForm._id}`).toPromise(); 
   } 

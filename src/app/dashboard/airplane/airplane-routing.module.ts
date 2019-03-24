@@ -8,6 +8,7 @@ import { ClientAirplaneComponent } from './client-airplane/client-airplane.compo
 const routes: Routes = [
   {path: '', component: AirPlaneComponent, children: [ 
     {path: 'admin', component: AdminAirplaneComponent, canActivate: [AuthGuard]},
+    {path: ':id', component: ClientAirplaneComponent},
     {path: 'view', component: ClientAirplaneComponent},
   ]} 
 ];

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AirCompanyService } from 'src/app/service/aircompany.service';
+import { IAircompany } from '../admin-aircompany/admin-aircompany.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'air-client-aircompany',
@@ -6,10 +9,45 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./client-aircompany.component.scss']
 })
 export class ClientAircompanyComponent implements OnInit {
+  selectAirCompany: IAircompany;
+  airCompany: IAircompany[];
+  display: boolean = false; 
+  url;
+  constructor(private companyService: AirCompanyService,private router: Router,) { 
+    this.url = this.router.parseUrl(this.router.url).root.children.primary.segments;
+  }
 
-  constructor() { }
+
+  loadNewList(){
+    this.companyService.getCompanyForm().then((planes:IAircompany[]) => {
+        this.airCompany = planes;
+    });
+  }
 
   ngOnInit() {
+    this.loadNewList();
+    if(this.url[2].path!=='view'){
+      this.companyService.getCompanyId(this.url[2].path).then(suc=>{
+        this.selectAirCompany = suc[0];
+        this.display = true;
+      }, err=>{
+        this.router.navigate(['/dashboard/aircompany','view']);
+      })
+    }
+  }
+
+  onHideDialog(){
+    this.router.navigate(['/dashboard/aircompany','view']);
+  }
+
+  showDialog(airPort){
+    this.router.navigate(['/dashboard/aircompany',airPort._id]);
+      this.companyService.getCompanyId(airPort._id).then(suc=>{
+        this.selectAirCompany = suc[0];
+        this.display = true;
+      }, err=>{
+        this.router.navigate(['/dashboard/aircompany','view']);
+      })
   }
 
 }
