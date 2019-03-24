@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ClientAirlineComponent implements OnInit {
 
+  property = "";
   selectAirLine: IAirLine | any;
   airLines: IAirLine[];
   display: boolean = false; 
@@ -28,15 +29,19 @@ export class ClientAirlineComponent implements OnInit {
     this.url = this.router.parseUrl(this.router.url).root.children.primary.segments;
   }
 
-  loadNewList(){
-    this.airLineService.getFormAirLine().then((planes:IAirLine[]) => {
+  filter(){
+    this.loadNewList(this.property.trim());
+  }
+
+  loadNewList(filter: string){
+    this.airLineService.getFormAirLine(filter).then((planes:IAirLine[]) => {
         this.airLines = planes;
     });
   }
 
   ngOnInit() {
-    this.loadNewList();
-    if(this.url[2].path!=='view'){
+    this.loadNewList('');
+    /*if(this.url[2].path!=='view'){
       this.airLineService.getAirLineId(this.url[2].path).then((suc:any)=>{
         this.listDays = [
           {value: 1, select: false},
@@ -53,11 +58,11 @@ export class ClientAirlineComponent implements OnInit {
       }, err=>{
         this.router.navigate(['/dashboard/airline','view']);
       })
-    }
+    }*/
   }
 
   onHideDialog(){
-    this.router.navigate(['/dashboard/airline','view']);
+    //this.router.navigate(['/dashboard/airline','view']);
   }
 
   transformArrDays(days){
@@ -71,8 +76,8 @@ export class ClientAirlineComponent implements OnInit {
   }
 
   showDialog(airLine){
-    this.router.navigate(['/dashboard/airline',airLine._id]);
-      this.airLineService.getAirLineId(airLine._id).then((suc:any)=>{
+   /* this.router.navigate(['/dashboard/airline',airLine._id]);
+      this.airLineService.getAirLineId(airLine._id).then((suc:any)=>{*/
         this.listDays = [
           {value: 1, select: false},
           {value: 2, select: false},
@@ -82,12 +87,12 @@ export class ClientAirlineComponent implements OnInit {
           {value: 6, select: false},
           {value: 7, select: false},
         ];
-        this.transformArrDays(suc.schedule.days)
-        this.selectAirLine = suc;
+        this.transformArrDays(airLine.schedule.days)
+        this.selectAirLine = airLine;
         this.display = true;
-      }, err=>{
+    /*  }, err=>{
         this.router.navigate(['/dashboard/airline','view']);
-      })
+      })*/
   }
 
 }

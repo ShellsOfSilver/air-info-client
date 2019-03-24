@@ -14,19 +14,23 @@ export class ClientAirplaneComponent implements OnInit {
   airPlane: IAirPlane[];
   display: boolean = false; 
   url;
-
+  property = "";
   constructor(private planeService: AirPlaneService,private router: Router,) { 
       this.url = this.router.parseUrl(this.router.url).root.children.primary.segments;
     }
 
-  loadNewList(){
-    this.planeService.getPlanes().then((planes:IAirPlane[]) => {
+  loadNewList(filter){
+    this.planeService.getPlanes(filter).then((planes:IAirPlane[]) => {
         this.airPlane = planes;
     });
   }
 
+  filter(){
+    this.loadNewList(this.property.trim());
+  }
+
   ngOnInit() {
-    this.loadNewList();
+    this.loadNewList("");
     if(this.url[2].path!=='view'){
       this.planeService.getPlanesId(this.url[2].path).then(suc=>{
         this.selectAirPlane = suc[0];

@@ -3,6 +3,27 @@ body, html {
 	font-family: sans-serif;
 }
 
+.search{
+  display: flex;
+  background: #42505f center no-repeat;
+}
+
+.search-input{
+  color: #b8c5cc;
+  background-color: #525c66;
+  width: 100%;
+}
+
+.search-input::placeholder{
+  color: #b8c5cc;
+}
+
+.search-icon{
+  color: #b8c5cc;
+  cursor: pointer;
+  padding: 6px;
+}
+
 /* ------------------------------------ */
 a {
 	margin: 0px;

@@ -10,8 +10,8 @@ export class AirPortService {
   constructor(private http: HttpClient, private userService: UserService,) {
     
   }
-  async getPort() {
-    return await this.http.get(`api/v1/airPort/list`).toPromise(); 
+  async getPort(filter = "") {
+    return await this.http.get(`api/v1/airPort/list?filter=${filter}`).toPromise(); 
   } 
 
   async getPortId(id) {

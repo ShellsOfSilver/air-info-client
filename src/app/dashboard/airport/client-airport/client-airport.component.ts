@@ -14,19 +14,24 @@ export class ClientAirportComponent implements OnInit {
   airPorts: IAirPort[];
   display: boolean = false; 
   url;
+  property = "";
   constructor(private portService: AirPortService,
     private router: Router,) { 
       this.url = this.router.parseUrl(this.router.url).root.children.primary.segments;
     }
 
-  loadNewList(){
-    this.portService.getPort().then((planes:IAirPort[]) => {
+  loadNewList(filter){
+    this.portService.getPort(filter).then((planes:IAirPort[]) => {
         this.airPorts = planes;
     });
   }
 
+  filter(){
+    this.loadNewList(this.property.trim());
+  }
+
   ngOnInit() {
-    this.loadNewList();
+    this.loadNewList("");
     if(this.url[2].path!=='view'){
       this.portService.getPortId(this.url[2].path).then(suc=>{
         this.selectAirPort = suc[0];

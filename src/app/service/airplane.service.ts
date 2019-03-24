@@ -10,8 +10,8 @@ export class AirPlaneService {
   constructor(private http: HttpClient, private userService: UserService,) {
     
   }
-  async getPlanes() {
-    return await this.http.get(`api/v1/airPlane/list`).toPromise(); 
+  async getPlanes(filter = "") {
+    return await this.http.get(`api/v1/airPlane/list?filter=${filter}`).toPromise(); 
   } 
 
   async getPlanesId(id) {

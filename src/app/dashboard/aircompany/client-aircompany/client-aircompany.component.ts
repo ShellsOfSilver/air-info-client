@@ -13,19 +13,24 @@ export class ClientAircompanyComponent implements OnInit {
   airCompany: IAircompany[];
   display: boolean = false; 
   url;
+  property = "";
   constructor(private companyService: AirCompanyService,private router: Router,) { 
     this.url = this.router.parseUrl(this.router.url).root.children.primary.segments;
   }
 
 
-  loadNewList(){
-    this.companyService.getCompanyForm().then((planes:IAircompany[]) => {
+  loadNewList(filter){
+    this.companyService.getCompanyForm(filter).then((planes:IAircompany[]) => {
         this.airCompany = planes;
     });
   }
 
+  filter(){
+    this.loadNewList(this.property.trim());
+  }
+
   ngOnInit() {
-    this.loadNewList();
+    this.loadNewList("");
     if(this.url[2].path!=='view'){
       this.companyService.getCompanyId(this.url[2].path).then(suc=>{
         this.selectAirCompany = suc[0];

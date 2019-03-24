@@ -1,3 +1,9 @@
+<div class="search">
+	<input type="text" class="search-input" 
+	placeholder="filter"
+	pInputText [(ngModel)]="property"/>
+	<i class="fa fa-search search-icon" (click)="filter()" aria-hidden="true"></i>
+</div>
 <div class="limiter" *ngIf="airPorts">
     <div class="container-table100">
       <div class="wrap-table100">

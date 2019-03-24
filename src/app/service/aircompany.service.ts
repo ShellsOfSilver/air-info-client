@@ -17,9 +17,9 @@ export class AirCompanyService {
   async getCompanyId(id) {
     return await this.http.get(`api/v1/airCompany/${id}`).toPromise(); 
   } 
-
-  async getCompanyForm() {
-    return await this.http.get(`api/v1/airCompany/form`).toPromise(); 
+  
+  async getCompanyForm(filter) {
+    return await this.http.get(`api/v1/airCompany/form?filter=${filter}`).toPromise(); 
   } 
 
   async removeCompany(companyForm) {

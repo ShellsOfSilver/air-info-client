@@ -1,3 +1,9 @@
+<div class="search">
+	<input type="text" class="search-input" 
+	placeholder="filter"
+	pInputText [(ngModel)]="property"/>
+	<i class="fa fa-search search-icon" (click)="filter()" aria-hidden="true"></i>
+</div>
 <div class="limiter" *ngIf="airCompany">
     <div class="container-table100">
       <div class="wrap-table100">
@@ -27,7 +33,7 @@
   
   
   <p-dialog header="Details" [dismissableMask]="true" (onHide)="onHideDialog()"
-  [(visible)]="display" [modal]="true" [responsive]="true"  [width]="728" [minY]="70" [baseZIndex]="10000">
+  [(visible)]="display" [modal]="true" [responsive]="true"  [width]="728" [minY]="00" [baseZIndex]="10000">
     <div *ngIf="selectAirCompany">
       <div class="dialog-item"><span style="font-weight: bold;">Name: </span> {{selectAirCompany.name}}</div>
       <div class="dialog-item"><span style="font-weight: bold;">Address: </span> {{selectAirCompany.address}}</div>

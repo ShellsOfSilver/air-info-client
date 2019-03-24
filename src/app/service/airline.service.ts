@@ -18,8 +18,8 @@ export class AirLineService {
     return await this.http.get(`api/v1/airLine/${id}`).toPromise(); 
   } 
 
-  async getFormAirLine() {
-    return await this.http.get(`api/v1/airLine/form`).toPromise(); 
+  async getFormAirLine(filter) {     
+    return await this.http.get(`api/v1/airLine/form?filter=${filter}`).toPromise(); 
   } 
 
   async removeAirLine(airLineForm) {
